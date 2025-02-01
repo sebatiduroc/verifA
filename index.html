@@ -26,7 +26,7 @@
 
         /* Style du bouton */
         #testButton {
-            background-color: green;
+            background-color: red;
             color: white;
             font-size: 20px;
             padding: 15px 30px;
@@ -91,4 +91,14 @@
         document.getElementById("testButton").addEventListener("click", function () {
             userInput = [];
             document.getElementById("message").innerText = "";
-    
+            document.getElementById("testButton").innerText = "Test";  // Réinitialise le bouton
+        });
+    </script>
+</head>
+<body>
+    <div id="container">
+        <button id="testButton">Test</button>
+        <div id="message"></div>
+    </div>
+</body>
+</html>
