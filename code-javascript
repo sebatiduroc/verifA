@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test JavaScript</title>
+    <script>
+        let userInput = [];
+
+        document.addEventListener("keydown", function (event) {
+            let key = event.key.toUpperCase();
+            if (/^[A-Z]$/.test(key) && !userInput.includes(key)) {
+                userInput.push(key);
+            }
+
+            if (userInput.length === 3) {
+                checkAnswer();
+                userInput = [];
+            }
+        });
+
+        function checkAnswer() {
+            const correct = ["A", "B", "C"];
+            let correctLetters = userInput.filter(letter => correct.includes(letter)).length;
+
+            if (userInput.join('') === "ABC") {
+                alert("Gagné !");
+            } else if (correctLetters === 3) {
+                alert("Les trois lettres sont correctes, mais l'ordre n'est pas le bon.");
+            } else {
+                alert(`La réponse proposée ne comporte que ${correctLetters} bonne(s) lettre(s).`);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Appuyez sur trois lettres</h1>
+</body>
+</html>
