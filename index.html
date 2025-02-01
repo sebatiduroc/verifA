@@ -26,7 +26,7 @@
 
         /* Style du bouton */
         #testButton {
-            background-color: green;
+            background-color: red;
             color: white;
             font-size: 20px;
             padding: 15px 30px;
@@ -66,6 +66,7 @@
             if (userInput.length === 3) {
                 checkAnswer();
                 userInput = [];  // Réinitialise la saisie
+                document.getElementById("testButton").innerText = ""; // Efface le texte du bouton
             }
         });
 
@@ -92,14 +93,20 @@
                 isTesting = true;  // Démarre le test
                 document.getElementById("message").innerText = ""; // Efface tout message précédent
                 userInput = [];  // Réinitialise la saisie
-                document.getElementById("testButton").innerText = ""; // Efface le texte du bouton
+                document.getElementById("testButton").innerText = ""; // Réinitialise le texte du bouton
+            } else {
+                // Si le test est déjà en cours, réinitialise le test
+                isTesting = false; 
+                userInput = [];  // Efface les lettres saisies
+                document.getElementById("message").innerText = ""; // Efface le message
+                document.getElementById("testButton").innerText = "Test"; // Remet le texte du bouton à "Test"
             }
         });
     </script>
 </head>
 <body>
     <div id="container">
-        <button id="testButton">Commencer le test</button>
+        <button id="testButton">Test</button>
         <div id="message"></div>
     </div>
 </body>
