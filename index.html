@@ -70,9 +70,9 @@
             if (userInput.join('') === "ABC") {
                 message = "🎉 Gagné !";
             } else if (correctLetters === 3) {
-                message = "✅ Les trois lettres sont correctes, mais l'ordre n'est pas le bon.";
+                message = "✅ Cartes OK, Ordre KO";
             } else {
-                message = `❌ La réponse proposée ne comporte que ${correctLetters} bonne(s) lettre(s).`;
+                message = `❌ ${correctLetters} carte(s) ok.`;
             }
 
             document.getElementById("message").innerText = message;
