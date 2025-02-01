@@ -51,14 +51,24 @@
     </style>
     <script>
         let userInput = [];
+        let isTestActive = false; // Variable pour bloquer la saisie tant que le bouton n'est pas cliqué
+
+        // Charge un bip sonore
+        const bipSound = new Audio("https://www.soundjay.com/button/beep-07.wav");
+
+        document.getElementById("testButton").addEventListener("click", function () {
+            isTestActive = true; // Active la saisie des lettres
+            userInput = []; // Réinitialise les lettres
+            document.getElementById("message").style.opacity = 0; // Cache le message précédent
+        });
 
         document.addEventListener("keydown", function (event) {
-            let key = event.key.toUpperCase();
+            if (!isTestActive) return; // Bloque la saisie si le test n'est pas activé
 
-            if (/^[A-Z]$/.test(key)) {
-                if (userInput.length < 3 && !userInput.includes(key)) {
-                    userInput.push(key);
-                }
+            let key = event.key.toUpperCase();
+            if (/^[A-Z]$/.test(key) && userInput.length < 3 && !userInput.includes(key)) {
+                userInput.push(key);
+                bipSound.play(); // Joue le bip
             }
 
             if (userInput.length === 3) {
@@ -67,6 +77,8 @@
         });
 
         function checkAnswer() {
+            isTestActive = false; // Désactive la saisie après validation
+
             const correct = ["A", "B", "C"];
             let correctLetters = userInput.filter(letter => correct.includes(letter)).length;
             let message = "";
@@ -82,12 +94,6 @@
             let messageDiv = document.getElementById("message");
             messageDiv.innerText = message;
             messageDiv.style.opacity = 1; // Affiche progressivement le message
-
-            // Réinitialisation après 2 secondes pour une meilleure UX
-            setTimeout(() => {
-                userInput = [];
-                messageDiv.style.opacity = 0; // Cache le message progressivement
-            }, 2000);
         }
     </script>
 </head>
