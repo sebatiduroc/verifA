@@ -7,6 +7,7 @@
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -27,6 +28,13 @@
         #testButton:hover {
             background-color: darkred;
         }
+
+        #message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: black;
+            font-weight: bold;
+        }
     </style>
     <script>
         let userInput = [];
@@ -46,18 +54,22 @@
         function checkAnswer() {
             const correct = ["A", "B", "C"];
             let correctLetters = userInput.filter(letter => correct.includes(letter)).length;
+            let message = "";
 
             if (userInput.join('') === "ABC") {
-                alert("Gagné !");
+                message = "🎉 Gagné !";
             } else if (correctLetters === 3) {
-                alert("Les trois lettres sont correctes, mais l'ordre n'est pas le bon.");
+                message = "✅ Les trois lettres sont correctes, mais l'ordre n'est pas le bon.";
             } else {
-                alert(`La réponse proposée ne comporte que ${correctLetters} bonne(s) lettre(s).`);
+                message = `❌ La réponse proposée ne comporte que ${correctLetters} bonne(s) lettre(s).`;
             }
+
+            document.getElementById("message").innerText = message;
         }
     </script>
 </head>
 <body>
     <button id="testButton">Test</button>
+    <div id="message"></div>
 </body>
 </html>
