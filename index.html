@@ -80,8 +80,6 @@
 
         // Vérification de la réponse
         function checkAnswer() {
-            isTestActive = false; // Désactive la saisie après validation
-
             const correct = ["A", "B", "C"];
             let correctLetters = userInput.filter(letter => correct.includes(letter)).length;
             let message = "";
@@ -98,9 +96,10 @@
             let messageDiv = document.getElementById("message");
             messageDiv.innerText = message;
 
-            // Attendre un court instant avant d'afficher le message pour assurer la fluidité
+            // Attendre un court instant avant de désactiver la saisie et afficher le message
             setTimeout(() => {
                 messageDiv.style.opacity = 1; // Affiche progressivement le message
+                isTestActive = false; // Désactive la saisie après validation
             }, 50); // Court délai pour donner le temps au DOM de s'actualiser
         }
     </script>
