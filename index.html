@@ -23,7 +23,7 @@
         }
 
         #testButton {
-            background-color: red;
+            background-color: blue;
             color: white;
             font-size: 20px;
             padding: 15px 30px;
@@ -64,8 +64,18 @@
             }
         }
 
-        // Écoute les pressions de touches
-        document.addEventListener("keydown", function (event) {
+        // Activation de la capture des touches lorsque la souris est sur le bouton
+        document.getElementById("testButton").addEventListener("mouseenter", function () {
+            document.addEventListener("keydown", handleKeydown);
+        });
+
+        // Désactivation de la capture des touches lorsque la souris quitte le bouton
+        document.getElementById("testButton").addEventListener("mouseleave", function () {
+            document.removeEventListener("keydown", handleKeydown);
+        });
+
+        // Fonction qui gère l'appui sur les touches
+        function handleKeydown(event) {
             if (!isTesting) return;  // Si le test n'est pas commencé, on ignore les pressions
 
             let key = event.key.toUpperCase(); // Assure que la lettre est en majuscule
@@ -78,7 +88,7 @@
                     checkAnswer();  // Vérifie la réponse
                 }
             }
-        });
+        }
 
         // Vérifie la réponse
         function checkAnswer() {
