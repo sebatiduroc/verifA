@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test JavaScript</title>
     <style>
-        /* Empêche le défilement et occupe toute la hauteur */
         html, body {
             height: 100%;
             margin: 0;
-            overflow: hidden; /* Empêche l'ascenseur */
+            overflow: hidden;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
         }
 
-        /* Conteneur centré verticalement et horizontalement */
         #container {
             display: flex;
             flex-direction: column;
@@ -24,9 +22,8 @@
             text-align: center;
         }
 
-        /* Style du bouton */
         #testButton {
-            background-color: green;
+            background-color: red;
             color: white;
             font-size: 20px;
             padding: 15px 30px;
@@ -39,7 +36,6 @@
             background-color: darkred;
         }
 
-        /* Zone d'affichage du message */
         #message {
             margin-top: 20px;
             font-size: 18px;
@@ -50,39 +46,41 @@
     <script>
         let userInput = [];
         let isTesting = false;
-        const bipSound = new Audio("https://lasonotheque.org/UPLOAD/wav/2235.wav"); // Son pour chaque appui
+        const bipSound = new Audio("https://lasonotheque.org/UPLOAD/wav/2235.wav");
 
-        // Fonction pour démarrer un test
+        // Démarre un test lorsque le bouton est cliqué
+        document.getElementById("testButton").addEventListener("click", function () {
+            startTest();
+        });
+
+        // Démarre un test
         function startTest() {
             if (!isTesting) {
-                isTesting = true;  // On commence le test
-                userInput = []; // Réinitialise la saisie
-                document.getElementById("message").innerText = ""; // Efface les messages précédents
-                document.getElementById("testButton").innerText = ""; // Réinitialise le texte du bouton
-                document.getElementById("testButton").style.backgroundColor = "grey"; // Désactive le bouton visuellement
+                isTesting = true;  // Marque que le test a commencé
+                userInput = [];  // Réinitialise l'entrée de l'utilisateur
+                document.getElementById("testButton").innerText = "";  // Efface le texte du bouton
+                document.getElementById("testButton").style.backgroundColor = "grey";  // Désactive le bouton
+                document.getElementById("message").innerText = "";  // Efface le message précédent
             }
         }
 
-        // Fonction appelée lorsqu'une touche est pressée
+        // Écoute les pressions de touches
         document.addEventListener("keydown", function (event) {
-            if (!isTesting) return;  // Ignore les appuis si le test n'a pas commencé
+            if (!isTesting) return;  // Si le test n'est pas commencé, on ignore les pressions
 
-            let key = event.key.toUpperCase(); // Convertit la touche en majuscule
-            if (/^[A-Z]$/.test(key) && !userInput.includes(key)) { // Si c'est une lettre unique
+            let key = event.key.toUpperCase(); // Assure que la lettre est en majuscule
+            if (/^[A-Z]$/.test(key) && !userInput.includes(key)) {
                 userInput.push(key);  // Ajoute la lettre à la liste
-                document.getElementById("testButton").innerText = userInput.join(''); // Met à jour le texte du bouton
-                bipSound.play(); // Joue le bip pour chaque lettre
-            }
+                document.getElementById("testButton").innerText = userInput.join('');  // Met à jour le texte du bouton
+                bipSound.play();  // Joue le son
 
-            if (userInput.length === 3) {
-                checkAnswer(); // Vérifie la réponse après 3 lettres
-                isTesting = false; // Arrête le test
-                document.getElementById("testButton").innerText = "Test"; // Réinitialise le texte du bouton
-                document.getElementById("testButton").style.backgroundColor = "red"; // Réactive le bouton visuellement
+                if (userInput.length === 3) {
+                    checkAnswer();  // Vérifie la réponse
+                }
             }
         });
 
-        // Fonction pour vérifier la réponse
+        // Vérifie la réponse
         function checkAnswer() {
             const correct = ["A", "B", "C"];
             let correctLetters = userInput.filter(letter => correct.includes(letter)).length;
@@ -97,12 +95,10 @@
             }
 
             document.getElementById("message").innerText = message;
+            isTesting = false;  // Arrête le test après avoir vérifié
+            document.getElementById("testButton").innerText = "Test";  // Remet le texte du bouton
+            document.getElementById("testButton").style.backgroundColor = "red";  // Réactive le bouton
         }
-
-        // Démarre un nouveau test lorsqu'on clique sur le bouton
-        document.getElementById("testButton").addEventListener("click", function () {
-            startTest();
-        });
     </script>
 </head>
 <body>
