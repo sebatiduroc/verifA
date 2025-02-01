@@ -26,7 +26,7 @@
 
         /* Style du bouton */
         #testButton {
-            background-color: red;
+            background-color: green;
             color: white;
             font-size: 20px;
             padding: 15px 30px;
@@ -59,6 +59,7 @@
                 userInput = []; // Réinitialise la saisie
                 document.getElementById("message").innerText = ""; // Efface les messages précédents
                 document.getElementById("testButton").innerText = ""; // Réinitialise le texte du bouton
+                document.getElementById("testButton").style.backgroundColor = "grey"; // Désactive le bouton visuellement
             }
         }
 
@@ -77,6 +78,7 @@
                 checkAnswer(); // Vérifie la réponse après 3 lettres
                 isTesting = false; // Arrête le test
                 document.getElementById("testButton").innerText = "Test"; // Réinitialise le texte du bouton
+                document.getElementById("testButton").style.backgroundColor = "red"; // Réactive le bouton visuellement
             }
         });
 
