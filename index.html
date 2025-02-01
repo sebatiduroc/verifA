@@ -45,23 +45,40 @@
             font-size: 18px;
             color: black;
             font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
         }
     </style>
     <script>
         let userInput = [];
+        let isTestActive = false; // Variable pour bloquer la saisie tant que le bouton n'est pas cliqué
 
+        // Charge le son
+        const bipSound = new Audio("https://lasonotheque.org/UPLOAD/wav/2235.wav");
+
+        // Fonction au clic du bouton pour activer le test
+        document.getElementById("testButton").addEventListener("click", function () {
+            isTestActive = true; // Active la saisie des lettres
+            userInput = []; // Réinitialise les lettres
+            document.getElementById("message").style.opacity = 0; // Cache le message précédent
+        });
+
+        // Fonction de gestion de l'appui sur les touches
         document.addEventListener("keydown", function (event) {
+            if (!isTestActive || userInput.length >= 3) return; // Si le test n'est pas activé ou 3 lettres déjà saisies
+
             let key = event.key.toUpperCase();
             if (/^[A-Z]$/.test(key) && !userInput.includes(key)) {
                 userInput.push(key);
+                bipSound.play(); // Joue le bip à chaque appui
             }
 
             if (userInput.length === 3) {
-                checkAnswer();
-                userInput = [];
+                setTimeout(checkAnswer, 200); // Retarde l'appel à checkAnswer pour attendre que le son soit joué
             }
         });
 
+        // Vérification de la réponse
         function checkAnswer() {
             const correct = ["A", "B", "C"];
             let correctLetters = userInput.filter(letter => correct.includes(letter)).length;
@@ -70,12 +87,20 @@
             if (userInput.join('') === "ABC") {
                 message = "🎉 Gagné !";
             } else if (correctLetters === 3) {
-                message = "✅ Les trois lettres sont correctes, mais l'ordre n'est pas le bon.";
+                message = "✅ Cartes OK, Ordre KO";
             } else {
-                message = `❌ La réponse proposée ne comporte que ${correctLetters} bonne(s) lettre(s).`;
+                message = `❌ ${correctLetters} carte(s) ok.`;
             }
 
-            document.getElementById("message").innerText = message;
+            // Affiche le message
+            let messageDiv = document.getElementById("message");
+            messageDiv.innerText = message;
+
+            // Attendre un court instant avant d'afficher le message
+            setTimeout(() => {
+                messageDiv.style.opacity = 1; // Affiche progressivement le message
+                isTestActive = false; // Désactive la saisie après validation
+            }, 50); // Court délai pour donner le temps au DOM de s'actualiser
         }
     </script>
 </head>
