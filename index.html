@@ -26,7 +26,7 @@
 
         /* Style du bouton */
         #testButton {
-            background-color: blue;
+            background-color: red;
             color: white;
             font-size: 20px;
             padding: 15px 30px;
@@ -49,38 +49,38 @@
     </style>
     <script>
         let userInput = [];
-        const bipSound = new Audio("https://lasonotheque.org/UPLOAD/wav/2235.wav");
-        let isTesting = false; // Variable pour savoir si l'utilisateur peut tester
+        let isTesting = false;
+        const bipSound = new Audio("https://lasonotheque.org/UPLOAD/wav/2235.wav"); // Son pour chaque appui
 
-        // Fonction pour commencer le test
+        // Fonction pour démarrer un test
         function startTest() {
             if (!isTesting) {
-                isTesting = true;  // Démarre le test
-                userInput = [];  // Réinitialise la saisie
-                document.getElementById("message").innerText = ""; // Efface tout message précédent
+                isTesting = true;  // On commence le test
+                userInput = []; // Réinitialise la saisie
+                document.getElementById("message").innerText = ""; // Efface les messages précédents
                 document.getElementById("testButton").innerText = ""; // Réinitialise le texte du bouton
             }
         }
 
-        // Fonction appelée lors de l'appui sur une touche
+        // Fonction appelée lorsqu'une touche est pressée
         document.addEventListener("keydown", function (event) {
-            if (!isTesting) return;  // Ne rien faire si le test n'a pas commencé
+            if (!isTesting) return;  // Ignore les appuis si le test n'a pas commencé
 
-            let key = event.key.toUpperCase();
-            if (/^[A-Z]$/.test(key) && !userInput.includes(key)) {
+            let key = event.key.toUpperCase(); // Convertit la touche en majuscule
+            if (/^[A-Z]$/.test(key) && !userInput.includes(key)) { // Si c'est une lettre unique
                 userInput.push(key);  // Ajoute la lettre à la liste
                 document.getElementById("testButton").innerText = userInput.join(''); // Met à jour le texte du bouton
-                bipSound.play(); // Joue le bip à chaque saisie
+                bipSound.play(); // Joue le bip pour chaque lettre
             }
 
             if (userInput.length === 3) {
-                checkAnswer();  // Vérifie la réponse
-                isTesting = false;  // Arrête le test
+                checkAnswer(); // Vérifie la réponse après 3 lettres
+                isTesting = false; // Arrête le test
                 document.getElementById("testButton").innerText = "Test"; // Réinitialise le texte du bouton
             }
         });
 
-        // Fonction de vérification de la réponse
+        // Fonction pour vérifier la réponse
         function checkAnswer() {
             const correct = ["A", "B", "C"];
             let correctLetters = userInput.filter(letter => correct.includes(letter)).length;
@@ -89,7 +89,7 @@
             if (userInput.join('') === "ABC") {
                 message = "🎉 Parfait !";
             } else if (correctLetters === 3) {
-                message = "✅ Cartes:OK, ordre:KO.";
+                message = "✅ Cartes OK, mais ordre KO.";
             } else {
                 message = `❌ ${correctLetters} carte(s) OK.`;
             }
@@ -97,7 +97,7 @@
             document.getElementById("message").innerText = message;
         }
 
-        // Démarrer un nouveau test lorsqu'on clique sur le bouton
+        // Démarre un nouveau test lorsqu'on clique sur le bouton
         document.getElementById("testButton").addEventListener("click", function () {
             startTest();
         });
