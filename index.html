@@ -45,8 +45,6 @@
             font-size: 18px;
             color: black;
             font-weight: bold;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
         }
     </style>
     <script>
@@ -54,15 +52,13 @@
 
         document.addEventListener("keydown", function (event) {
             let key = event.key.toUpperCase();
-
-            if (/^[A-Z]$/.test(key)) {
-                if (userInput.length < 3 && !userInput.includes(key)) {
-                    userInput.push(key);
-                }
+            if (/^[A-Z]$/.test(key) && !userInput.includes(key)) {
+                userInput.push(key);
             }
 
             if (userInput.length === 3) {
                 checkAnswer();
+                userInput = [];
             }
         });
 
@@ -74,20 +70,12 @@
             if (userInput.join('') === "ABC") {
                 message = "🎉 Gagné !";
             } else if (correctLetters === 3) {
-                message = "✅ Cartes OK, Ordre KO";
+                message = "✅ Les trois lettres sont correctes, mais l'ordre n'est pas le bon.";
             } else {
-                message = `❌ ${correctLetters} carte(s) ok.`;
+                message = `❌ La réponse proposée ne comporte que ${correctLetters} bonne(s) lettre(s).`;
             }
 
-            let messageDiv = document.getElementById("message");
-            messageDiv.innerText = message;
-            messageDiv.style.opacity = 1; // Affiche progressivement le message
-
-            // Réinitialisation après 2 secondes pour une meilleure UX
-            setTimeout(() => {
-                userInput = [];
-                messageDiv.style.opacity = 0; // Cache le message progressivement
-            }, 2000);
+            document.getElementById("message").innerText = message;
         }
     </script>
 </head>
