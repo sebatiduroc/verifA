@@ -5,16 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test JavaScript</title>
     <style>
-        body {
+        /* Empêche le défilement et occupe toute la hauteur */
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden; /* Empêche l'ascenseur */
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        /* Conteneur centré verticalement et horizontalement */
+        #container {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f4f4f4;
-            font-family: Arial, sans-serif;
+            text-align: center;
         }
 
+        /* Style du bouton */
         #testButton {
             background-color: red;
             color: white;
@@ -29,6 +39,7 @@
             background-color: darkred;
         }
 
+        /* Zone d'affichage du message */
         #message {
             margin-top: 20px;
             font-size: 18px;
@@ -69,7 +80,9 @@
     </script>
 </head>
 <body>
-    <button id="testButton">Test</button>
-    <div id="message"></div>
+    <div id="container">
+        <button id="testButton">Test</button>
+        <div id="message"></div>
+    </div>
 </body>
 </html>
