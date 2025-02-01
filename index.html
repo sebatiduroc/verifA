@@ -26,7 +26,7 @@
 
         /* Style du bouton */
         #testButton {
-            background-color: red;
+            background-color: green;
             color: white;
             font-size: 20px;
             padding: 15px 30px;
@@ -64,7 +64,9 @@
             if (userInput.length === 3) {
                 checkAnswer();
                 userInput = [];
-                document.getElementById("testButton").innerText = "Test"; // Réinitialise le texte du bouton après la vérification
+                setTimeout(function() {
+                    document.getElementById("testButton").innerText = "Test"; // Réinitialise le texte du bouton après 2 secondes
+                }, 2000);
             }
         });
 
@@ -89,14 +91,4 @@
         document.getElementById("testButton").addEventListener("click", function () {
             userInput = [];
             document.getElementById("message").innerText = "";
-            document.getElementById("testButton").innerText = "Test";  // Réinitialise le bouton
-        });
-    </script>
-</head>
-<body>
-    <div id="container">
-        <button id="testButton">Test</button>
-        <div id="message"></div>
-    </div>
-</body>
-</html>
+    
