@@ -53,17 +53,19 @@
         let userInput = [];
         let isTestActive = false; // Variable pour bloquer la saisie tant que le bouton n'est pas cliqué
 
-        // Charge ton son personnalisé
+        // Charge le son
         const bipSound = new Audio("https://lasonotheque.org/UPLOAD/wav/2235.wav");
 
+        // Fonction au clic du bouton pour activer le test
         document.getElementById("testButton").addEventListener("click", function () {
             isTestActive = true; // Active la saisie des lettres
             userInput = []; // Réinitialise les lettres
             document.getElementById("message").style.opacity = 0; // Cache le message précédent
         });
 
+        // Fonction de gestion de l'appui sur les touches
         document.addEventListener("keydown", function (event) {
-            if (!isTestActive) return; // Bloque la saisie si le test n'est pas activé
+            if (!isTestActive) return; // Si le test n'est pas activé, ne rien faire
 
             let key = event.key.toUpperCase();
             if (/^[A-Z]$/.test(key) && userInput.length < 3 && !userInput.includes(key)) {
@@ -72,10 +74,11 @@
             }
 
             if (userInput.length === 3) {
-                checkAnswer();
+                checkAnswer(); // Vérifie la réponse après 3 lettres
             }
         });
 
+        // Vérification de la réponse
         function checkAnswer() {
             isTestActive = false; // Désactive la saisie après validation
 
