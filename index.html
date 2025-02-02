@@ -93,7 +93,9 @@
             userInput = [];
             document.getElementById("message").innerText = "";
             document.getElementById("testButton").innerText = "Test";  // Réinitialise le bouton
-            startSound.play(); // Joue le start au démarrage
+            setTimeout(function () {
+        startSound.play(); // Joue le son après 200ms
+    }, 200);
         });
     </script>
 </head>
