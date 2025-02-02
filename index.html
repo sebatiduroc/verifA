@@ -79,6 +79,7 @@
 
             if (userInput.join('') === "MHS") {
                 messageA = "🎉 Parfait !";
+                document.getElementById('631d758c-87e9-4b0b-b224-8d7b3630e527').style.display = 'none';
                 localStorage.setItem("varA", "1"); // Mise à jour en cas de succès
             } else if (correctLetters === 3) {
                 messageA = "✅ Cartes:OK, ordre:KO.";
