@@ -23,7 +23,7 @@
         }
 
         #testButton {
-            background-color: red;
+            background-color: green;
             color: white;
             font-size: 20px;
             padding: 15px 30px;
@@ -54,6 +54,7 @@
         // Vérifier si varA est déjà définie, sinon l'initialiser à 0
         if (localStorage.getItem("varA") === null) {
             localStorage.setItem("varA", "0");
+            alert(`varA has changed to: ${varA}`);
         }
 
         let userInput = [];
@@ -84,7 +85,8 @@
 
             if (userInput.join('') === "MHS") {
                 message = "🎉 Parfait !";
-                localStorage.setItem("varA", "1"); // Mise à jour en cas de succès
+                localStorage.setItem("varA", "1");
+                alert(`varA has changed to: ${varA}`); // Mise à jour en cas de succès
             } else if (correctLetters === 3) {
                 message = "✅ Cartes:OK, ordre:KO.";
             } else {
