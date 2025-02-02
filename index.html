@@ -13,7 +13,7 @@
             background-color: #888888;
         }
 
-        #container {
+        #containerA {
             display: flex;
             flex-direction: column;
             justify-content: top;
@@ -36,7 +36,7 @@
             background-color: darkgreen;
         }
 
-        #message {
+        #messageA {
             margin-top: 20px;
             font-size: 18px;
             color: black;
@@ -46,9 +46,9 @@
     
 </head>
 <body>
-    <div id="container">
+    <div id="containerA">
         <button id="testButtonA">Test</button>
-        <div id="message"></div>
+        <div id="messageA"></div>
     </div>
     <script>
         let userInput = [];
@@ -75,23 +75,23 @@
         function checkAnswer() {
             const correct = ["M", "H", "S"];
             let correctLetters = userInput.filter(letter => correct.includes(letter)).length;
-            let message = "";
+            let messageA = "";
 
             if (userInput.join('') === "MHS") {
-                message = "🎉 Parfait !";
+                messageA = "🎉 Parfait !";
                 localStorage.setItem("varA", "1"); // Mise à jour en cas de succès
             } else if (correctLetters === 3) {
-                message = "✅ Cartes:OK, ordre:KO.";
+                messageA = "✅ Cartes:OK, ordre:KO.";
             } else {
-                message = `❌ ${correctLetters} carte(s) OK.`;
+                messageA = `❌ ${correctLetters} carte(s) OK.`;
             }
 
-            document.getElementById("message").innerText = message;
+            document.getElementById("messageA").innerText = messageA;
         }
 
         document.getElementById("testButtonA").addEventListener("click", function () {
             userInput = [];
-            document.getElementById("message").innerText = "";
+            document.getElementById("messageA").innerText = "";
             document.getElementById("testButtonA").innerText = "Test";
             setTimeout(function () {
                 startSound.play();
