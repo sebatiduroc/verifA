@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test JavaScript</title>
     <style>
-        /* Empêche le défilement et occupe toute la hauteur */
         html, body {
             height: 100%;
             margin: 0;
-            overflow: hidden; /* Empêche l'ascenseur */
+            overflow: hidden;
             font-family: Arial, sans-serif;
             background-color: #888888;
         }
 
-        /* Conteneur centré verticalement et horizontalement */
         #container {
             display: flex;
             flex-direction: column;
@@ -24,9 +22,8 @@
             text-align: center;
         }
 
-        /* Style du bouton */
         #testButton {
-            background-color: green;
+            background-color: red;
             color: white;
             font-size: 20px;
             padding: 15px 30px;
@@ -39,7 +36,6 @@
             background-color: darkgreen;
         }
 
-        /* Zone d'affichage du message */
         #message {
             margin-top: 20px;
             font-size: 18px;
@@ -55,30 +51,32 @@
         <div id="message"></div>
     </div>
     <script>
+        // Vérifier si varA est déjà définie, sinon l'initialiser à 0
+        if (localStorage.getItem("varA") === null) {
+            localStorage.setItem("varA", "0");
+        }
+
         let userInput = [];
         const bipSound = new Audio("https://lasonotheque.org/UPLOAD/wav/2235.wav");
         const startSound = new Audio("https://lasonotheque.org/UPLOAD/wav/1111.wav");
         
-        // Lorsque l'utilisateur appuie sur une touche
         document.addEventListener("keydown", function (event) {
             let key = event.key.toUpperCase();
             if (/^[A-Z]$/.test(key) && !userInput.includes(key)) {
-                userInput.push(key);  // Ajoute la lettre à la liste
-                document.getElementById("testButton").innerText = userInput.join(''); // Met à jour le texte du bouton
-
-                bipSound.play(); // Joue le bip à chaque saisie
+                userInput.push(key);
+                document.getElementById("testButton").innerText = userInput.join('');
+                bipSound.play();
             }
 
             if (userInput.length === 3) {
                 checkAnswer();
                 userInput = [];
                 setTimeout(function () {
-        startSound.play().catch(error => console.log("Erreur de lecture audio :", error)); // Tente de jouer le son avec gestion d'erreur
-    }, 200);
+                    startSound.play().catch(error => console.log("Erreur de lecture audio :", error));
+                }, 200);
             }
         });
 
-        // Vérifie si la réponse est correcte
         function checkAnswer() {
             const correct = ["M", "H", "S"];
             let correctLetters = userInput.filter(letter => correct.includes(letter)).length;
@@ -86,6 +84,7 @@
 
             if (userInput.join('') === "MHS") {
                 message = "🎉 Parfait !";
+                localStorage.setItem("varA", "1"); // Mise à jour en cas de succès
             } else if (correctLetters === 3) {
                 message = "✅ Cartes:OK, ordre:KO.";
             } else {
@@ -95,14 +94,13 @@
             document.getElementById("message").innerText = message;
         }
 
-        // Réinitialisation du test au clic du bouton
         document.getElementById("testButton").addEventListener("click", function () {
             userInput = [];
             document.getElementById("message").innerText = "";
-            document.getElementById("testButton").innerText = "Test";  // Réinitialise le bouton
+            document.getElementById("testButton").innerText = "Test";
             setTimeout(function () {
-        startSound.play(); // Joue le son après 200ms
-    }, 200);
+                startSound.play();
+            }, 200);
         });
     </script>
 </body>
