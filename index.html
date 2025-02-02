@@ -22,7 +22,7 @@
             text-align: center;
         }
 
-        #testButton {
+        #testButtonA {
             background-color: green;
             color: white;
             font-size: 20px;
@@ -32,7 +32,7 @@
             border-radius: 5px;
         }
 
-        #testButton:hover {
+        #testButtonA:hover {
             background-color: darkgreen;
         }
 
@@ -47,7 +47,7 @@
 </head>
 <body>
     <div id="container">
-        <button id="testButton">Test</button>
+        <button id="testButtonA">Test</button>
         <div id="message"></div>
     </div>
     <script>
@@ -59,7 +59,7 @@
             let key = event.key.toUpperCase();
             if (/^[A-Z]$/.test(key) && !userInput.includes(key)) {
                 userInput.push(key);
-                document.getElementById("testButton").innerText = userInput.join('');
+                document.getElementById("testButtonA").innerText = userInput.join('');
                 bipSound.play();
             }
 
@@ -89,10 +89,10 @@
             document.getElementById("message").innerText = message;
         }
 
-        document.getElementById("testButton").addEventListener("click", function () {
+        document.getElementById("testButtonA").addEventListener("click", function () {
             userInput = [];
             document.getElementById("message").innerText = "";
-            document.getElementById("testButton").innerText = "Test";
+            document.getElementById("testButtonA").innerText = "Test";
             setTimeout(function () {
                 startSound.play();
             }, 200);
