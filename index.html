@@ -72,11 +72,11 @@
 
         // Vérifie si la réponse est correcte
         function checkAnswer() {
-            const correct = ["A", "B", "C"];
+            const correct = ["M", "H", "S"];
             let correctLetters = userInput.filter(letter => correct.includes(letter)).length;
             let message = "";
 
-            if (userInput.join('') === "ABC") {
+            if (userInput.join('') === "MHS") {
                 message = "🎉 Parfait !";
             } else if (correctLetters === 3) {
                 message = "✅ Cartes:OK, ordre:KO.";
