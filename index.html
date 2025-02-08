@@ -57,7 +57,7 @@
         
         document.addEventListener("keydown", function (event) {
             let key = event.key.toUpperCase();
-            if (/^[A-Z]$/.test(key) && !userInput.includes(key)) {
+            if (/^[ITMUGHNOS]$/.test(key) && !userInput.includes(key)) {
                 userInput.push(key);
                 document.getElementById("testButtonA").innerText = userInput.join('');
                 bipSound.play();
